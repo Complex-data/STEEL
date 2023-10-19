@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-6">
+        <h2 id="search_text">{{search_text}}</h2>
+        <p id="result-text">
+            {% for item in response_json %}
+            {% if item['type'] == 'newline' %}
+            <br>
+            {% elif item['type'] == 'footnote' %}
+            <span style="font-weight: bold; font-size: 0.8rem; background-color: #88effc;">{{ item['text'] }}</span>
+            {% else %}
+            {{ item['text'] }}
+            {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <ul id="search_result_sources" class="list-group">
+            {% for item in source_json %}
+            <li class="list-group-item">
+                <h5 class="mb-1">
+                    <img src="https://www.google.com/s2/favicons?domain={{item['domain']}}" alt="Favicon">
+                    <a href="{{item['url']}}">{{item['footnote']}} {{item['domain']}}</a>
+                </h5>
+                <h4 class="mb-1" style="font-family: 'Playfair Display', Georgia">{{item['title']}}</h4>
+                <p class="mb-1">{{item['text']}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!--
+    这段代码使用了 Jinja2 模板引擎，它会根据 response_json 和 source_json 中的数据来生成 HTML 内容。
+
+    这段代码创建了一个带有两列的行。左列显示搜索文本和结果文本，右列显示搜索结果来源。
+
+    左列中，<h2> 标签显示搜索文本，<p> 标签显示结果文本。结果文本是由 response_json 中的数据生成的。
+
+    如果 response_json 中的某一项的 type 属性为 'newline'，则会在结果文本中插入一个换行符 <br>。
+    如果 type 属性为 'footnote'，则会在结果文本中插入一个带有蓝色背景和粗体字的 <span> 标签。否则，直接插入该项的 text 属性。
+
+    右列中，使用了一个无序列表 <ul> 来显示搜索结果来源。每个搜索结果来源都是一个列表项 <li>，它包含一个带有网站图标和链接的 <h5> 标签，
+    一个显示标题的 <h4> 标签和一个显示文本的 <p> 标签。这些内容都是由 source_json 中的数据生成的。
+-->

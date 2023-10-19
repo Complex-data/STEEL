@@ -1,0 +1,48 @@
+general:
+  language: en-US
+  #language: en-US # It will determine bing search market and LLM prompt language. en-US / zh-CN / it-IT / fr-FR / de-DE / es-ES / ja-JP / ko-KR / pt-BR / ru-RU / etc.
+source_service:
+  is_use_source: true # grounded or not grounded. If not grounded, meaning just Q&A via LLM
+  is_enable_bing_search: true
+  is_enable_doc_search: false
+  doc_search_path:
+  bing_search:
+    end_point: https://api.bing.microsoft.com
+    subscription_key: 08d048f2cbc4427b86ae1fd6bc9aa8cb
+    result_count: 3
+    sentence_count_per_site: 40
+    text_extract: trafilatura # beautifulsoup / trafilatura
+llm_service:
+  provider: openai # openai/goose_ai
+  openai_api:
+    api_key: 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
+    # model: gpt-3.5-turbo is the best one. Details: https://platform.openai.com/docs/models/gpt-3-5.
+    # model: gpt-4 is in limited preview
+    # model: text-babbage-001
+    # model: text-curie-001
+    # model: text-davinci-003
+    # model: gpt-3.5-turbo-16k
+    model: gpt-3.5-turbo # default
+    max_tokens: 1
+    temperature: 0
+    top_p: 0.75
+    prompt:
+      prompt_token_limit: 4096
+    stream: true
+  goose_ai_api:
+    api_key:
+    api_base: https://api.goose.ai/v1
+    # https://goose.ai/docs/models
+    model: gpt-neo-20b
+    max_tokens: 100
+cache:  # .cache result for efficiency and consistency
+  is_enable:
+    web: true
+    bing_search_website: true
+    bing_search_website_content: true
+    openai: true
+    gooseai: false
+  path: .cache
+  max_number_of_cache: 50
+
+

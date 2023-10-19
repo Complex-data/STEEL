@@ -1,0 +1,60 @@
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Click to expand Explainability 👆
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+             data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>{{search_text}}</h2>
+                        <p>
+                            {% for item in response_explain_json %}
+                            {% if item['type'] == 'newline' %}
+                            <br>
+                            {% elif item['type'] == 'keyword' %}
+                            <span style="background-color: {{item['color']}}">{{ item['text'] }}</span>
+                            {% else %}
+                            <span>{{ item['text'] }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <p style="font-size: 0.8rem">
+                            {% for item in source_explain_json %}
+                            {% if item['type'] == 'newline' %}
+                            <br>
+                            {% elif item['type'] == 'keyword' %}
+                            <span style="background-color: {{item['color']}}">{{ item['text'] }}</span>
+                            {% else %}
+                            <span>{{ item['text'] }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+    这段代码使用了 Jinja2 模板引擎，它会根据 response_explain_json 和 source_explain_json 中的数据来生成 HTML 内容。
+
+    这段代码创建了一个手风琴控件，它包含一个手风琴项。手风琴项的标题是一个按钮，点击它可以展开或折叠手风琴项的内容。
+
+    手风琴项的内容包含两列。左列显示搜索文本和解释文本，右列显示解释来源。
+
+    左列中，<h2> 标签显示搜索文本，<p> 标签显示解释文本。解释文本是由 response_explain_json 中的数据生成的。
+    如果 response_explain_json 中的某一项的 type 属性为 'newline'，则会在解释文本中插入一个换行符 <br>。
+    如果 type 属性为 'keyword'，则会在解释文本中插入一个带有背景颜色的 <span> 标签。否则，直接插入该项的 text 属性。
+
+    右列中，使用了一个 <p> 标签来显示解释来源。解释来源是由 source_explain_json 中的数据生成的。
+    如果 source_explain_json 中的某一项的 type 属性为 'newline'，则会在解释来源中插入一个换行符 <br>。
+    如果 type 属性为 'keyword'，则会在解释来源中插入一个带有背景颜色的 <span> 标签。否则，直接插入该项的 text 属性。
+-->
